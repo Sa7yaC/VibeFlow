@@ -1,0 +1,21 @@
+# Ignore compiled output
+/build/
+/dist/
+
+# Ignore node modules
+/node_modules/
+
+# Ignore environment variables file
+.env
+
+# Ignore editor files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore macOS specific files
+.DS_Store
