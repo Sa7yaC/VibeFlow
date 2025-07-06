@@ -1,26 +1,25 @@
+const app = require('express')();
+const http = require('http').Server(app);
+require('dotenv').config();
+const mongoose = require('mongoose');
+const dbPassword = process.env.DB_PASSWORD;
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://sa7ya30:69PFsgJhjB98kLEw@cluster0.fxt8exs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+mongoose.connect("mongodb+srv://sa7ya30:"+dbPassword+"@cluster0.fxt8exs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+const User = require('./models/userModel');
 
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+async function insert(){
+  await User.create({
+    userId : 1,
+    userName: "Satya",
+    password: "1234",
+    registrationNumber: "22BEY10024",
+    email: "satya123@gmail.com",
+    mobileNumber: "9876543210"
+  });
 }
-run().catch(console.dir);
+insert();
+
+http.listen(3000, function(){
+  console.log('Server is running');
+});
